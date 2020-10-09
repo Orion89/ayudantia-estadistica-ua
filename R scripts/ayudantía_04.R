@@ -64,17 +64,19 @@ summary(propinas$propina)
 # (25%), mediana (50%), tercer cuartil (75%) y el valor máximo del vector
 fivenum(propinas$propina)
 
-# Varianza de las propinas
+# Varianza muestral de las propinas
 var(propinas$propina)
+
+sd(propinas$propina)
 
 # Histograma de las propinas, ¿qué podemos deducir? ¿Cuáles son más frecuentes?
 hist(propinas$propina, main = "Distribución de las propinas")
 
 # Histograma del total de las boletas, ¿qué podemos deducir?
-hist(propinas$total_boleta, main = "Distribución de las propinas")
+hist(propinas$total_boleta, main = "Distribución del total de las boletas")
 
 # Boxplot para el total boleta ¿En qué valor están más "cocentradas"?
-boxplot(propinas$propina)
+boxplot(propinas$propina, main="Boxplot de las propinas")
 
 # __________________________ Exploración bivariada __________________________ #
 
@@ -82,10 +84,10 @@ boxplot(propinas$propina)
 boxplot(propinas$total_boleta)
 
 # Boxplot para las propinas por día de la semana. ¿Qué día es mejor para los meseros?
-boxplot(propinas$propina~propinas$dia)
+boxplot(propinas$propina~propinas$day)
 
 # ¿Qué día de la semana los clientes gastan más?
-boxplot(propinas$total_boleta~propinas$dia, xlab = "Día de la semana", ylab="Total boleta")
+boxplot(propinas$total_boleta~propinas$day, xlab = "Día de la semana", ylab="Total boleta")
 
 # ¿Y cómo son las propias por sexo? ¿Quién da más propina? ¿Qué sexo es el más variable en la
 # propona que da?
@@ -96,22 +98,24 @@ boxplot(propinas$propina~propinas$sexo)
 attach(propinas)
 
 # Gráfico de dispiersión (scatter plot)
-plot(total_boleta, propina)
+plot(total_boleta, propina, type="p")
+# Podemos agregar texto dentro del gráfico para, por ejemplo, señalar puntos importantes
+text(44, 10, "valor atípico")
 
-# ¿Qué proporción hay de fumadores?
-plot(propinas$fumador)
+# ¿Qué frecuencias hay de fumadores?
+plot(fumador)
 
-boxplot(propinas$propina~propinas$fumador)
+boxplot(propina~smoker)
 
 # Trazaremos un scatter plot del total boleta versus la cantidad de propida
 # para todos los niveles del factor sexo
-coplot(total_boleta~propina|sexo)
+coplot(propina~total_boleta|sexo)
 
 # ¿Qué ocurre con el día domingo?
-coplot(total_boleta~propina|dia, columns=4) # Agregamos 4 columnas
+coplot(propina~total_boleta|day, columns=4) # Agregamos 4 columnas
 ?coplot
 
-# Un gráfico de dispersióm con una dimesión adicional, haciendo uso del paquete paletteer
+# Un gráfico de dispersión con una dimesión adicional, haciendo uso del paquete paletteer
 install.packages("paletteer") # Instalamos el paquete
 install.packages("scico") # un paquete requerido 
 
@@ -121,8 +125,8 @@ colores <- paletteer_c("scico::berlin", n = 4)
 
 # Ploteamos
 plot(
-  x = propinas$total_boleta, 
-  y = propinas$propina,
-  bg = colores[ unclass(propinas$hora)],
+  x = total_boleta, 
+  y = propina,
+  bg = colores[ unclass(sexo)],
   cex = 2,
   pch=21)
