@@ -84,10 +84,10 @@ boxplot(propinas$propina, main="Boxplot de las propinas")
 boxplot(propinas$total_boleta)
 
 # Boxplot para las propinas por día de la semana. ¿Qué día es mejor para los meseros?
-boxplot(propinas$propina~propinas$day)
+boxplot(propinas$propina~propinas$dia)
 
 # ¿Qué día de la semana los clientes gastan más?
-boxplot(propinas$total_boleta~propinas$day, xlab = "Día de la semana", ylab="Total boleta")
+boxplot(propinas$total_boleta~propinas$dia, xlab = "Día de la semana", ylab="Total boleta")
 
 # ¿Y cómo son las propias por sexo? ¿Quién da más propina? ¿Qué sexo es el más variable en la
 # propona que da?
@@ -105,14 +105,17 @@ text(44, 10, "valor atípico")
 # ¿Qué frecuencias hay de fumadores?
 plot(fumador)
 
-boxplot(propina~smoker)
+boxplot(propina~fumador)
 
 # Trazaremos un scatter plot del total boleta versus la cantidad de propida
 # para todos los niveles del factor sexo
 coplot(propina~total_boleta|sexo)
 
 # ¿Qué ocurre con el día domingo?
-coplot(propina~total_boleta|day, columns=4) # Agregamos 4 columnas
+coplot(propina~total_boleta|dia, columns=4) # Agregamos 4 columnas
+
+# Si deseamos pedir ayuda, debemos ingresar el signo de cierre de interrogación y el
+# nombre de la función sin los paréntesis
 ?coplot
 
 # Un gráfico de dispersión con una dimesión adicional, haciendo uso del paquete paletteer
